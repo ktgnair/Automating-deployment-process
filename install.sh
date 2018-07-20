@@ -31,9 +31,6 @@ rm $PLUGIN_DIR/*.jar
 echo "Removing war"
 rm webapps/$WAR_NAME
 
-#echo "Removing war folder"
-#rm -rf $TOMCAT/webapps/$WAR_NAME
-
 echo "adding .properties file into tomcat/conf";
 cp $CURRENT_PATH/$1 conf/
 
