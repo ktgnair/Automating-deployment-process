@@ -16,20 +16,24 @@ mkdir bkp_$BACKUP_DIR/war bkp_$BACKUP_DIR/plugins
 
 echo "Taking backup of plugin";
 cp $PLUGIN_DIR/*.jar bkp_$BACKUP_DIR/plugins
+//sri: instead of cp use mv. that you dont have to rm later.
 
 echo "Taking war backup";
 cd $TOMCAT_PATH
 WAR_NAME=$WAR_NAME.war
 cp webapps/$WAR_NAME $CURRENT_PATH/bkp_$BACKUP_DIR/war
-
+//sri: instead of cp use mv. that you dont have to rm later.
 echo "Server Down";
 bin/./shutdown.sh -force
+//sri: always use the pid based shutdown
 
 echo "Removing plugins";
 rm $PLUGIN_DIR/*.jar
+// no need of rm
 
 echo "Removing war"
 rm webapps/$WAR_NAME
+// no need of rm
 
 echo "adding .properties file into tomcat/conf";
 cp $CURRENT_PATH/$1 conf/
@@ -41,6 +45,8 @@ echo "Adding new war";
 cp  $CURRENT_PATH/openspecimen.war webapps/
 
 mv webapps/openspecimen.war webapps/$WAR_NAME
+//sri: why are you doing htis in 2 commands? Find out how to do this during cp itself.
 
 echo "Server Up..";
 bin/./startup.sh
+//sri: always use the pid based startup
